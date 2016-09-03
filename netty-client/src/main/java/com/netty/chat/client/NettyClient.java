@@ -52,7 +52,7 @@ public class NettyClient {
 //					proto尝试					
 					ch.pipeline().addLast(
 											new ProtobufVarint32FrameDecoder(),
-				    			 			new ProtobufDecoder(QchatMessage.person.getDefaultInstance()),
+				    			 			new ProtobufDecoder(QchatMessage.person1.getDefaultInstance()),
 				    			 			
 				    			 			new ProtobufVarint32LengthFieldPrepender(),
 				    			 			new ProtobufEncoder(),
