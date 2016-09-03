@@ -1,15 +1,22 @@
 package com.netty.chat.client.handler;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import com.netty.chat.client.client.Client;
+import com.netty.chat.client.client.OlineClients;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
 public class ClientHandler extends ChannelInboundHandlerAdapter{
+	
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		// TODO Auto-generated method stub
 		
-		System.err.println((String)msg);
+		//System.err.println((String)msg);
 		
 		/*ByteBuf response = (ByteBuf)msg;
 		byte[] responseArr = new byte[response.readableBytes()];
@@ -30,9 +37,10 @@ public class ClientHandler extends ChannelInboundHandlerAdapter{
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
 		// TODO Auto-generated method stub
-		
-		ctx.writeAndFlush("hello server,I'm client");
-		
+//		Client client = new Client(ctx);
+//		OlineClients.getInstance().addClient(client);
+		ctx.writeAndFlush("hello server!");
+			
 		/*String str = "hello,server";
 		ByteBuf buf = ctx.alloc().directBuffer(4 * str.length());
 		buf.writeBytes(str.getBytes());
@@ -50,4 +58,5 @@ public class ClientHandler extends ChannelInboundHandlerAdapter{
 		System.err.println("find error!");
 		super.exceptionCaught(ctx, cause);
 	}
+	
 }
