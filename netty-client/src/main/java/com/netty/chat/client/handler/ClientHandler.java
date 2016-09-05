@@ -8,11 +8,14 @@ public class ClientHandler extends ChannelInboundHandlerAdapter{
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		// TODO Auto-generated method stub
-		ByteBuf response = (ByteBuf)msg;
+		
+		System.err.println((String)msg);
+		
+		/*ByteBuf response = (ByteBuf)msg;
 		byte[] responseArr = new byte[response.readableBytes()];
 		response.readBytes(responseArr);
 		System.out.println(new String(responseArr));
-		response.release();
+		response.release();*/
 		
 		
 		
@@ -28,14 +31,16 @@ public class ClientHandler extends ChannelInboundHandlerAdapter{
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
 		// TODO Auto-generated method stub
 		
-		String str = "hello,server";
+		ctx.writeAndFlush("hello server,I'm client");
+		
+		/*String str = "hello,server";
 		ByteBuf buf = ctx.alloc().directBuffer(4 * str.length());
 		buf.writeBytes(str.getBytes());
 		ctx.write(buf);
 		ctx.flush();
-		System.err.println("client active send msg" + ",time:" + System.currentTimeMillis());
-		//ctx.writeAndFlush("hello server,I'm client");
+		System.err.println("client active send msg" + ",time:" + System.currentTimeMillis());*/
 		
+		//ctx.writeAndFlush("hello server,I'm client");
 		//super.channelActive(ctx);
 	}
 	
