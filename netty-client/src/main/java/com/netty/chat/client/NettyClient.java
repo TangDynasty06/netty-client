@@ -18,11 +18,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import com.chat.common.message.QchatMessage;
+import com.chat.common.netty.handler.decode.ByteToMessageDecode;
 import com.chat.common.netty.handler.decode.ProtobufDecoder;
 import com.chat.common.netty.handler.decode.ProtobufVarint32FrameDecoder;
+import com.chat.common.netty.handler.encode.MessageToByteEncode;
 import com.chat.common.netty.handler.encode.MsgEncode;
 import com.chat.common.netty.handler.encode.ProtobufEncoder;
 import com.chat.common.netty.handler.encode.ProtobufVarint32LengthFieldPrepender;
+import com.chat.common.scan.MsgScan;
 import com.netty.chat.client.client.Client;
 import com.netty.chat.client.client.OlineClients;
 import com.netty.chat.client.handler.ClientHandler;
@@ -49,15 +52,27 @@ public class NettyClient {
 //											new ClientHandler()
 //										  );
 					
+					
+					
 //					proto尝试					
+//					ch.pipeline().addLast(
+//											new ProtobufVarint32FrameDecoder(),
+//				    			 			new ProtobufDecoder(QchatMessage.person1.getDefaultInstance()),
+//				    			 			
+//				    			 			new ProtobufVarint32LengthFieldPrepender(),
+//				    			 			new ProtobufEncoder(),
+//				    			 			new ClientProtoHandler()
+//										 );
+					
+					
+					
+					
+					//自定义尝试
 					ch.pipeline().addLast(
-											new ProtobufVarint32FrameDecoder(),
-				    			 			new ProtobufDecoder(QchatMessage.person1.getDefaultInstance()),
-				    			 			
-				    			 			new ProtobufVarint32LengthFieldPrepender(),
-				    			 			new ProtobufEncoder(),
-				    			 			new ClientProtoHandler()
-										 );
+    			 			new ByteToMessageDecode(),
+    			 			new MessageToByteEncode(),
+    			 			new ClientProtoHandler()
+    			 		 );
 				}
 			});
 
@@ -89,6 +104,8 @@ public class NettyClient {
 	}
 	
 	public static void main(String[] args) {
+		MsgScan msgScan = new MsgScan("com/chat/common/message");
+		msgScan.initMsg();
 		NettyClient client = new NettyClient();
 		client.connection("127.0.0.1", 6100);
 	}
