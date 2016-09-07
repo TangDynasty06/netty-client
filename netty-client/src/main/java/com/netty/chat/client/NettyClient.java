@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import com.chat.common.message.QchatMessage;
+import com.chat.common.message.QchatMessage.repeatedMsg3;
 import com.chat.common.netty.handler.decode.ByteToMessageDecode;
 import com.chat.common.netty.handler.decode.ProtobufDecoder;
 import com.chat.common.netty.handler.decode.ProtobufVarint32FrameDecoder;
@@ -64,9 +65,6 @@ public class NettyClient {
 //				    			 			new ClientProtoHandler()
 //										 );
 					
-					
-					
-					
 					//自定义尝试
 					ch.pipeline().addLast(
     			 			new ByteToMessageDecode(),
@@ -83,8 +81,15 @@ public class NettyClient {
 					BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 					String str = null;
 					while ((str = reader.readLine()) != null) {
-						f.channel().writeAndFlush(str);
+//						字符串解码
+//						f.channel().writeAndFlush(str);
+//						str = null;
+						
+//						proto解码
+						repeatedMsg3 msg3 =  repeatedMsg3.newBuilder().setMsg(str).build();
+						f.channel().writeAndFlush(msg3);
 						str = null;
+						
 					}
 					
 				}

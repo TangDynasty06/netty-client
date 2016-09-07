@@ -14,7 +14,7 @@ public class ClientProtoHandler extends ChannelInboundHandlerAdapter{
 		// TODO Auto-generated method stub
 		person1.Builder  builder = person1.newBuilder();
 		builder.setId(101);
-		builder.setName("client");
+		builder.setName("client,This what! ,hello girl or boy !!");
 		ctx.writeAndFlush(builder.build());
 	}
 	
@@ -23,8 +23,12 @@ public class ClientProtoHandler extends ChannelInboundHandlerAdapter{
 			throws Exception {
 		// TODO Auto-generated method stub
 		if(msg instanceof MessageLite){
-			QchatMessage.person1 p = (QchatMessage.person1)msg;
-			System.err.println(p.getName() + " , " + p.getId());
+			/*QchatMessage.person1 p = (QchatMessage.person1)msg;
+			System.err.println(p.getName() + " , " + p.getId());*/
+			
+			
+			MessageLite lite = (MessageLite)msg;
+			System.err.println(lite + ",client print");
 		}
 	}
 	
